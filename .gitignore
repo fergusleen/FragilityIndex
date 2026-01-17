@@ -8,3 +8,6 @@ cache/
 .mypy_cache/
 .ruff_cache/
 out/
+prompt.txt
+.DS_Store
+.vscode/
