@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import os
-try:
-    import tomllib
-except ModuleNotFoundError:  # pragma: no cover - Python < 3.11
-    import tomli as tomllib
+
+import tomllib
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -25,6 +24,7 @@ DEFAULT_CONFIG = {
             "AVGO",
             "TSM",
             "ASML",
+            "TSLA"
         ],
         "benchmarks": ["SPY", "QQQ"],
     },
