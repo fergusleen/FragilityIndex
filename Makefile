@@ -1,4 +1,4 @@
-.PHONY: install lint test run report api
+.PHONY: install lint test run report api publish-pages
 
 install:
 	python -m pip install -e .[dev]
@@ -18,3 +18,9 @@ report:
 
 api:
 	fragility serve
+
+publish-pages:
+	mkdir -p docs
+	cp out/report.html docs/index.html
+	cp out/index.png docs/index.png
+	cp out/components.png docs/components.png

@@ -1,66 +1,20 @@
 # AI Market Fragility Monitor
+A weekly-updated instrument for monitoring fragility in AI-related equity markets.
 
-A transparent, local-first monitor that builds a weekly Fragility Index (0–100) from market, macro, and narrative signals. It focuses on regime stress and crowding rather than crash-date prediction.
+## What this is
+This is a public, reproducible monitor of regime stress and its containment or propagation across market structure, liquidity, and narrative channels. It focuses on fragility signals rather than narratives. This does not predict crashes or timing.
 
-## What it does
-- Produces a weekly-updated composite index with component sub-scores and regime labels.
-- Stores raw and curated data locally for reproducibility and auditability.
-- Generates a static HTML report plus JSON/CSV outputs.
-- Exposes a lightweight FastAPI for programmatic access.
+## How to read it
+The index ranges from Calm (0–20) to Fragile (80–100). A high component can coexist with a moderate composite because the model weights multiple channels; if stress has not propagated into volatility, crowding, or narrative, the composite stays contained. Use the banded view and component trendlines together, not any single point in isolation.
 
-## Quickstart
-```bash
-make install
-cp config.example.toml config.toml
-cp .env.example .env
-fragility monitor --refresh --report out/
-```
+## Method (high level)
+The index combines multiple transparent components using robust z-scores and fixed weights. There is no black-box ML. Data sources are public and results update weekly on a consistent cadence.
 
-### Sample terminal output
-```
-Fragility Index
-Index: 57.2 | Band: [44.8, 69.6]
-Trend: .:-=++*##%%#**+=-::..
+## What this is not
+It is not investment advice, not a trading signal, and not a sentiment tracker.
 
-Components
-- Capital Flow         61.3
-- Revenue Reality      53.8
-- Model Economics      48.9
-- Narrative            62.4
-- Macro Liquidity      59.1
-- Dispersion           55.2
-- Crowding             58.0
-- Volatility           60.7
-- Pricing Pressure     52.1
-- Ai Hype              63.5
-
-Report written to /path/to/out
-```
-
-### Sample output files
-```
-out/
-  report.html
-  summary.json
-  timeseries.csv
-  index.png
-  components.png
-```
-
-## CLI
-- `fragility monitor --asof YYYY-MM-DD --refresh --report out/`
-- `fragility serve`
-
-## Data sources
-- Market prices: Stooq (free, no key). Optional hooks for paid providers via environment keys.
-- Macro series: FRED (API key optional).
-- Filings text: SEC EDGAR 10-K/10-Q documents.
-
-## How the index works
-1. **Feature engineering**: relative strength, dispersion, crowding, volatility regimes, macro risk, and narrative decay.
-2. **Scoring**: rolling robust z-scores with winsorization, mapped to 0–100 via a logistic transform.
-3. **Composite**: weighted average of core components with uncertainty bands.
-4. **Explainability**: top component deltas drive the “Why this moved” bullets.
+## Publishing cadence
+Updated weekly, with historical revisions visible in the charts. Live report: https://<username>.github.io/<repo>/
 
 ## Configuration
 - `config.toml` controls tickers, weights, rolling windows, and report settings.

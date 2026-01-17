@@ -74,8 +74,16 @@ def compute_component_scores(
         upper_q=upper_q,
     )
 
-    df["ai_hype"] = _apply_score(
-        _safe_series(narrative_features, "ai_density", df.index), window=rolling_window, lower_q=lower_q, upper_q=upper_q
+    expectation_raw = (
+        _safe_series(market_features, "ai_relative_strength", df.index)
+        + _safe_series(narrative_features, "ai_density", df.index)
+        + _safe_series(divergence_features, "ai_crowding_corr", df.index)
+    )
+    df["expectation_load"] = _apply_score(
+        expectation_raw,
+        window=rolling_window,
+        lower_q=lower_q,
+        upper_q=upper_q,
     )
 
     df = df.sort_index()

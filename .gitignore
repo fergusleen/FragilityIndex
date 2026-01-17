@@ -2,6 +2,9 @@ __pycache__/
 *.pyc
 .venv/
 .env
-/data/raw/
-/data/curated/
-/out/
+data/
+cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+out/

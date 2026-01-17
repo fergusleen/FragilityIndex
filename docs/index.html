@@ -82,36 +82,62 @@
     <section class="hero">
       <h1>AI Market Fragility Monitor</h1>
       <div class="score">
-        <span>{{ summary.index | round(1) }}</span>
+        <span>40.2</span>
         <div>
-          <div>{{ regime }}</div>
-          <div class="muted">As of {{ summary.asof }}</div>
+          <div>Elevated</div>
+          <div class="muted">As of 2026-01-16</div>
         </div>
       </div>
-      <div class="muted">{{ summary.interpretation }}</div>
-      {% if containment_message %}
-      <div class="muted">{{ containment_message }}</div>
-      {% endif %}
-      {% if macro_sector_callout %}
-      <div class="muted">{{ macro_sector_callout }}</div>
-      {% endif %}
+      <div class="muted">Fragility is building; crowding or narrative decay may be increasing sensitivity.</div>
+      
+      <div class="muted">One component is maxed, but it has not yet propagated into volatility, crowding, narrative; the stress appears contained.</div>
+      
+      
+      <div class="muted">Macro conditions are relatively calm; current fragility appears sector-specific (idiosyncratic) rather than systemic.</div>
+      
     </section>
 
     <div class="grid">
       <div class="card">
         <h3>Why This Moved</h3>
         <ul>
-          {% for mover in movers %}
-          <li>{{ mover.name }}: {{ "%+.2f"|format(mover.delta) }} {% if mover.sigma_text %}({{ mover.sigma_text }}){% endif %}</li>
-          {% endfor %}
+          
+          <li>Dispersion: -42.49 (-1.3σ)</li>
+          
+          <li>Capital Flow: +28.63 (+2.1σ)</li>
+          
+          <li>Revenue Reality: +24.48 (+1.6σ)</li>
+          
+          <li>Crowding: -9.85 (-1.5σ)</li>
+          
+          <li>Volatility: -9.02 (-0.9σ)</li>
+          
         </ul>
       </div>
       <div class="card">
         <h3>Component Snapshot</h3>
         <ul>
-          {% for name, value in summary_components.items() %}
-          <li>{{ name }}: {{ value | round(1) }}</li>
-          {% endfor %}
+          
+          <li>Capital Flow: 66.9</li>
+          
+          <li>Revenue Reality: 71.7</li>
+          
+          <li>Model Economics: 47.3</li>
+          
+          <li>Narrative: 1.3</li>
+          
+          <li>Macro Liquidity: 28.9</li>
+          
+          <li>Dispersion: 42.6</li>
+          
+          <li>Crowding: 27.9</li>
+          
+          <li>Volatility: 29.8</li>
+          
+          <li>Pricing Pressure: 99.9</li>
+          
+          <li>Expectation Load: 88.6</li>
+          
         </ul>
       </div>
     </div>
@@ -119,11 +145,11 @@
     <div class="grid">
       <div class="card">
         <h3>Index History</h3>
-        <img src="{{ index_plot }}" alt="Index chart" />
+        <img src="index.png" alt="Index chart" />
       </div>
       <div class="card">
         <h3>Component History</h3>
-        <img src="{{ components_plot }}" alt="Components chart" />
+        <img src="components.png" alt="Components chart" />
       </div>
     </div>
 
@@ -131,15 +157,20 @@
       <div class="card">
         <h3>What would push this into Stressed?</h3>
         <ul>
-          {% for trigger in stress_triggers %}
-          <li>{{ trigger }}</li>
-          {% endfor %}
+          
+          <li>Crowding above 50 for three consecutive weeks.</li>
+          
+          <li>Volatility score above 55.</li>
+          
+          <li>Narrative score above 30.</li>
+          
+          <li>Capital Flow above 75 with a rising 3-week trend.</li>
+          
+          <li>Composite index up 15+ points over three weeks.</li>
+          
         </ul>
       </div>
     </div>
   </div>
-  <footer class="wrap muted" style="padding-top: 12px;">
-    Updated weekly. Public data. No forecasts.
-  </footer>
 </body>
 </html>

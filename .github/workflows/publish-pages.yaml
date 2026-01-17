@@ -1,0 +1,62 @@
+name: Publish GitHub Pages report
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every Friday at 07:15 UTC (UK winter = UTC)
+    - cron: "15 7 * * 5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Generate report
+        env:
+          # Optional keys (only if you use them). Store in repo Settings -> Secrets and variables -> Actions
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          #ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+          # Add any others you support
+        run: |
+          rm -rf out docs
+          mkdir -p out docs
+          fragility monitor --refresh --report out
+          # Copy *only* the published artifacts
+          cp -v out/report.html docs/index.html
+          cp -v out/index.png docs/index.png
+          cp -v out/components.png docs/components.png
+          # Optional: publish a machine-readable snapshot too
+          if [ -f out/summary.json ]; then cp -v out/summary.json docs/summary.json; fi
+          if [ -f out/timeseries.csv ]; then cp -v out/timeseries.csv docs/timeseries.csv; fi
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A docs
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+            exit 0
+          fi
+          git commit -m "Publish weekly report"
+          git push

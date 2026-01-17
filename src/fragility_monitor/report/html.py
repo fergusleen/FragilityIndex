@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
+from fragility_monitor.report.explain import report_context
 from fragility_monitor.scoring.composite import label_regime
 
 
@@ -25,7 +26,14 @@ def _plot_index(df: pd.DataFrame, path: Path) -> None:
 
 def _plot_components(components: pd.DataFrame, path: Path) -> None:
     fig, ax = plt.subplots(figsize=(10, 4))
-    for column in ["capital_flow", "revenue_reality", "model_economics", "narrative", "macro_liquidity"]:
+    for column in [
+        "capital_flow",
+        "revenue_reality",
+        "model_economics",
+        "narrative",
+        "macro_liquidity",
+        "expectation_load",
+    ]:
         if column in components.columns:
             ax.plot(components.index, components[column], label=column.replace("_", " ").title())
     ax.set_title("Component Scores")
@@ -35,14 +43,6 @@ def _plot_components(components: pd.DataFrame, path: Path) -> None:
     fig.tight_layout()
     fig.savefig(path, dpi=150)
     plt.close(fig)
-
-
-def _top_movers(components: pd.DataFrame) -> list[dict[str, Any]]:
-    if len(components) < 2:
-        return []
-    delta = components.iloc[-1] - components.iloc[-2]
-    movers = delta.sort_values(ascending=False).head(5)
-    return [{"name": idx.replace("_", " ").title(), "delta": float(val)} for idx, val in movers.items()]
 
 
 def generate_report(
@@ -66,11 +66,16 @@ def generate_report(
 
     env = Environment(loader=FileSystemLoader(Path(__file__).parent / "templates"))
     template = env.get_template("report.html")
+    explain = report_context(composite, components, summary)
     html = template.render(
         index_plot=index_plot.name,
         components_plot=comp_plot.name,
         summary=summary,
         regime=label_regime(summary["index"]),
-        movers=_top_movers(components),
+        movers=explain["movers"],
+        containment_message=explain["containment_message"],
+        macro_sector_callout=explain["macro_sector_callout"],
+        stress_triggers=explain["stress_triggers"],
+        summary_components=explain["summary_components"],
     )
     (output_dir / "report.html").write_text(html)
