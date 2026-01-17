@@ -54,8 +54,15 @@ def generate_report(
     output_dir.mkdir(parents=True, exist_ok=True)
     index_plot = output_dir / "index.png"
     comp_plot = output_dir / "components.png"
-    _plot_index(composite, index_plot)
-    _plot_components(components, comp_plot)
+    plot_start = pd.Timestamp("2022-10-01")
+    plot_composite = composite.loc[composite.index >= plot_start]
+    plot_components = components.loc[components.index >= plot_start]
+    if plot_composite.empty:
+        plot_composite = composite
+    if plot_components.empty:
+        plot_components = components
+    _plot_index(plot_composite, index_plot)
+    _plot_components(plot_components, comp_plot)
 
     summary_path = output_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2))

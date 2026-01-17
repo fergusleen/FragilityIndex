@@ -16,7 +16,8 @@ def compute_narrative_features(filings: pd.DataFrame) -> pd.DataFrame:
     grouped = normalized.groupby("date").mean(numeric_only=True).sort_index()
     grouped = grouped.resample("W-FRI").ffill(limit=13)
 
-    ratio_trend = grouped["efficiency_transform_ratio"].pct_change(13).fillna(0.0)
+    ratio_smoothed = grouped["efficiency_transform_ratio"].rolling(4, min_periods=1).mean()
+    ratio_trend = ratio_smoothed.pct_change(13).fillna(0.0)
 
     features = pd.DataFrame(
         {

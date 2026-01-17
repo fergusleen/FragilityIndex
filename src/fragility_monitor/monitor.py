@@ -74,7 +74,9 @@ def run_monitor(config: Config, refresh: bool = False) -> MonitorResult:
         prices = StooqFetcher().fetch_prices(tickers).prices
         write_parquet(prices, market_path)
     else:
-        prices = read_parquet(market_path) or pd.DataFrame()
+        prices = read_parquet(market_path)
+        if prices is None:
+            prices = pd.DataFrame()
     if prices.empty:
         raise RuntimeError("No market data fetched. Check network access or Stooq availability.")
 
@@ -84,7 +86,9 @@ def run_monitor(config: Config, refresh: bool = False) -> MonitorResult:
         macro = fred_fetcher.fetch_series(config.fred.get("series", {})).series
         write_parquet(macro, macro_path)
     else:
-        macro = read_parquet(macro_path) or pd.DataFrame()
+        macro = read_parquet(macro_path)
+        if macro is None:
+            macro = pd.DataFrame()
 
     sec_path = curated_dir / "filing_signals.parquet"
     if refresh or not sec_path.exists():
@@ -96,7 +100,9 @@ def run_monitor(config: Config, refresh: bool = False) -> MonitorResult:
         filings = SecEdgarFetcher(edgar_config).fetch_signals(config.market["ai_tickers"]).metrics
         write_parquet(filings, sec_path)
     else:
-        filings = read_parquet(sec_path) or pd.DataFrame()
+        filings = read_parquet(sec_path)
+        if filings is None:
+            filings = pd.DataFrame()
 
     market_features = compute_market_features(prices, config.market["ai_tickers"], benchmark="SPY")
     if market_features.empty:
