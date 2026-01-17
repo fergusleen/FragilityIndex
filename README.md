@@ -1,5 +1,5 @@
 # AI Market Fragility Monitor
-A weekly-updated instrument for monitoring fragility in AI-related equity markets.
+A weekly-updated instrument for monitoring fragility in AI-related equity markets. Hosted at https://fergusleen.github.io/FragilityIndex/
 
 ## What this is
 This is a public, reproducible monitor of regime stress and its containment or propagation across market structure, liquidity, and narrative channels. It focuses on fragility signals rather than narratives. This does not predict crashes or timing.
