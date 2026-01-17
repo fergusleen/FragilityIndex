@@ -1,0 +1,36 @@
+[general]
+base_currency = "USD"
+log_level = "INFO"
+
+[data]
+raw_dir = "data/raw"
+curated_dir = "data/curated"
+
+[market]
+ai_tickers = ["NVDA", "MSFT", "GOOGL", "AMZN", "META", "AMD", "AVGO", "TSM", "ASML"]
+benchmarks = ["SPY", "QQQ"]
+
+[fred]
+api_key = ""
+series = {
+  hy_spread = "BAMLH0A0HYM2",
+  vix = "VIXCLS"
+}
+
+[sec]
+user_agent = "FragilityMonitor/0.1 (email@example.com)"
+max_filings_per_ticker = 4
+
+[report]
+output_dir = "out"
+
+[scoring]
+rolling_window_years = 2
+winsorize_quantiles = [0.05, 0.95]
+
+[weights]
+capital_flow = 0.2
+revenue_reality = 0.15
+model_economics = 0.15
+narrative = 0.2
+macro_liquidity = 0.3

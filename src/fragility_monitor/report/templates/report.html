@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Market Fragility Monitor</title>
+  <style>
+    :root {
+      --bg: #f6f2e9;
+      --panel: #ffffff;
+      --ink: #1c2a33;
+      --muted: #66737d;
+      --accent: #1f4e5f;
+      --accent-2: #e07a5f;
+    }
+    body {
+      margin: 0;
+      font-family: "Work Sans", "Avenir Next", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top left, #f1e4d0, var(--bg));
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+    .hero {
+      display: grid;
+      gap: 16px;
+      background: linear-gradient(120deg, #ffffff, #f5ede0);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 0.5px;
+    }
+    .score {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 22px;
+      color: var(--accent);
+    }
+    .score span {
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--panel);
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+    .muted {
+      color: var(--muted);
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    ul {
+      padding-left: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>AI Market Fragility Monitor</h1>
+      <div class="score">
+        <span>{{ summary.index | round(1) }}</span>
+        <div>
+          <div>{{ regime }}</div>
+          <div class="muted">As of {{ summary.asof }}</div>
+        </div>
+      </div>
+      <div class="muted">{{ summary.interpretation }}</div>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Why This Moved</h3>
+        <ul>
+          {% for mover in movers %}
+          <li>{{ mover.name }}: {{ "%+.2f"|format(mover.delta) }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Component Snapshot</h3>
+        <ul>
+          {% for name, value in summary.components.items() %}
+          <li>{{ name }}: {{ value | round(1) }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Index History</h3>
+        <img src="{{ index_plot }}" alt="Index chart" />
+      </div>
+      <div class="card">
+        <h3>Component History</h3>
+        <img src="{{ components_plot }}" alt="Components chart" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>
