@@ -1,18 +1,18 @@
 {
-  "asof": "2026-01-23",
-  "index": 46.67418213749423,
+  "asof": "2026-01-30",
+  "index": 50.915698637319764,
   "regime": "Elevated",
   "components": {
-    "Capital Flow": 63.03585587909362,
-    "Revenue Reality": 62.72107620447864,
-    "Model Economics": 32.66954360268714,
-    "Narrative": 31.751381275132324,
-    "Macro Liquidity": 44.69380578524723,
-    "Dispersion": 62.866179027608396,
-    "Crowding": 41.50310335113003,
-    "Volatility": 27.673424002065644,
-    "Pricing Pressure": 99.89140619485897,
-    "Expectation Load": 89.54138858097654
+    "Capital Flow": 68.61594665056485,
+    "Revenue Reality": 73.38813153403947,
+    "Model Economics": 24.550998659006503,
+    "Narrative": 20.3303538043179,
+    "Macro Liquidity": 61.451896724621044,
+    "Dispersion": 99.52243625748505,
+    "Crowding": 32.62591034394903,
+    "Volatility": 27.99565830328346,
+    "Pricing Pressure": 98.34068532963522,
+    "Expectation Load": 83.81081717475347
   },
   "interpretation": "Fragility is building; crowding or narrative decay may be increasing sensitivity."
 }
