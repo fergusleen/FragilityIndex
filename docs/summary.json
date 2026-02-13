@@ -1,18 +1,18 @@
 {
-  "asof": "2026-02-06",
-  "index": 28.209744379783302,
+  "asof": "2026-02-13",
+  "index": 37.43097460195773,
   "regime": "Warming",
   "components": {
-    "Capital Flow": 30.37545810181257,
-    "Revenue Reality": 42.25930647947321,
-    "Model Economics": 36.21351856813755,
-    "Narrative": 27.254307647137455,
-    "Macro Liquidity": 16.37622490950561,
-    "Dispersion": 75.92547928636864,
-    "Crowding": 36.44251997150423,
-    "Volatility": 45.576905527081344,
-    "Pricing Pressure": 98.97515444319895,
-    "Expectation Load": 89.39976773133684
+    "Capital Flow": 34.05573167683301,
+    "Revenue Reality": 44.58140305715251,
+    "Model Economics": 68.06483647157607,
+    "Narrative": 32.806101791113626,
+    "Macro Liquidity": 23.87223993019706,
+    "Dispersion": 29.435125500222174,
+    "Crowding": 28.769486022568458,
+    "Volatility": 52.99139236242239,
+    "Pricing Pressure": 96.47569075976271,
+    "Expectation Load": 87.48502435758813
   },
   "interpretation": "Signals suggest stable positioning with contained stress; monitor for divergence shifts."
 }
