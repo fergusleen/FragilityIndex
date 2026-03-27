@@ -1,18 +1,18 @@
 {
-  "asof": "2026-03-20",
-  "index": 40.490107570916926,
-  "regime": "Elevated",
+  "asof": "2026-03-27",
+  "index": 32.20236087334508,
+  "regime": "Warming",
   "components": {
-    "Capital Flow": 49.267162512117565,
-    "Revenue Reality": 43.76574779041638,
-    "Model Economics": 29.011616324202787,
-    "Narrative": 92.83800456635004,
-    "Macro Liquidity": 3.8415651267684217,
-    "Dispersion": 51.52008564151704,
-    "Crowding": 36.105140962970026,
-    "Volatility": 43.09336239203974,
+    "Capital Flow": 28.360517267284425,
+    "Revenue Reality": 25.85847763277029,
+    "Model Economics": 32.34465492009974,
+    "Narrative": 87.62664193214171,
+    "Macro Liquidity": 0.9148638350978242,
+    "Dispersion": 72.21183420120543,
+    "Crowding": 41.4688779528356,
+    "Volatility": 56.942781710211875,
     "Pricing Pressure": 33.749201508225816,
-    "Expectation Load": 86.65347073486056
+    "Expectation Load": 80.83355145647475
   },
-  "interpretation": "Fragility is building; crowding or narrative decay may be increasing sensitivity."
+  "interpretation": "Signals suggest stable positioning with contained stress; monitor for divergence shifts."
 }
